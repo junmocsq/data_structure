@@ -27,7 +27,7 @@ func a2_recursive(n int, a int, sum int) int {
 	if n == 0 {
 		return sum + a
 	}
-	return a2_recursive(n-1, a, (sum + f2(n)) * a)
+	return a2_recursive(n-1, a, (sum+f2(n))*a)
 }
 
 func a3(n int, index int, s []byte) []string {
@@ -65,7 +65,7 @@ func a5(n int) {
 	for i := 1; i <= n; i++ {
 		t := f()
 		if m[t] != 0 {
-			//fmt.Println("输入",m[t],"和",i,"值相同，都为",t)
+			//fmt.Println("a5: 输入",m[t],"和",i,"值相同，都为",t)
 		}
 		m[t] = i
 	}
@@ -106,29 +106,56 @@ func a7_recursive(n int) int {
 	return n * a7_recursive(n-1)
 }
 
+func a8_iteration(n int) int {
+	if n == 0 {
+		return 0
+	}
+	if n == 1 {
+		return 1
+	}
+	a, b := 0, 1
+	for i := 2; i <= n; i++ {
+		t := b
+		b = a + b
+		a = t
+	}
+	return b
+}
+
+func a8_recursive(n int) int {
+	if n == 0 {
+		return 0
+	}
+	if n == 1 {
+		return 1
+	}
+	return a8_recursive(n-1) + a8_recursive(n-2)
+}
+
 func main() {
 
 	//a2 =================
-	fmt.Println(a2_iteration(2,1),a2_recursive(2,1,0))
+	fmt.Println("a2: iteration: ",a2_iteration(2, 1),"recursive:", a2_recursive(2, 1, 0))
 
 	//a3 =================
 	res := a3(4, 0, []byte{})
-	fmt.Println(res)
+	fmt.Println("a3: ",res)
 
 	//a4 =================
 	l := []int{1, 2, 3}
 	a4(l)
-	fmt.Println(l)
+	fmt.Println("a4: ",l)
 
 	//a5 =================
 	a5(100)
 
 	//a6 =================
-	fmt.Println("10 是不是它的所有因子之和： ", a6(10))
+	fmt.Println("a6: 10 是不是它的所有因子之和： ", a6(10))
 
 	//a7 =================
-	fmt.Println("iteration:", a7_iteration(10), " recursive:", a7_recursive(10))
+	fmt.Println("a7: iteration:", a7_iteration(10), " recursive:", a7_recursive(10))
 
-	//a8
+	//a8 =================
+	fmt.Println("a8: iteration:", a8_iteration(10), " recursive:", a8_recursive(10))
 
 }
