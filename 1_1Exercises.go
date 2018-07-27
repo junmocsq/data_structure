@@ -27,8 +27,7 @@ func a2_recursive(n int, a int, sum int) int {
 	if n == 0 {
 		return sum + a
 	}
-	sum = (sum + f2(n)) * a
-	return a2_recursive(n-1, a, sum)
+	return a2_recursive(n-1, a, (sum + f2(n)) * a)
 }
 
 func a3(n int, index int, s []byte) []string {
