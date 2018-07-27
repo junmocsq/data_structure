@@ -78,12 +78,11 @@ func a6(n int) bool {
 			s = append(s, i)
 		}
 	}
-	fmt.Println(s)
+
 	sum := 0
 	for _, v := range s {
 		sum += v
 	}
-	fmt.Println(sum)
 	if sum == n {
 		return true
 	} else {
@@ -132,19 +131,48 @@ func a8_recursive(n int) int {
 	return a8_recursive(n-1) + a8_recursive(n-2)
 }
 
+
+//求出完整杨辉三角 再取值
+func a9_iteration(n, m int) int {
+	var index [][]int = make([][]int,0)
+	for i:=0;i<=n;i++{
+		index = append(index,[]int{})
+		for j:=0;j<=i;j++ {
+			var t int = 0
+			if j==i||j==0{
+				t =1
+			}else {
+
+				t = index[i-1][j-1]+index[i-1][j]
+			}
+			index[i] = append(index[i],t)
+		}
+	}
+	//fmt.Println(index)
+	return index[n][m]
+}
+
+func a9_recursive(n, m int) int {
+	if n == m||m==0 {
+		return 1
+	}
+	res := a9_recursive(n-1, m) + a9_recursive(n-1, m-1)
+	return res
+}
+
 func main() {
 
 	//a2 =================
-	fmt.Println("a2: iteration: ",a2_iteration(2, 1),"recursive:", a2_recursive(2, 1, 0))
+	fmt.Println("a2: iteration: ", a2_iteration(2, 1), "recursive:", a2_recursive(2, 1, 0))
 
 	//a3 =================
 	res := a3(4, 0, []byte{})
-	fmt.Println("a3: ",res)
+	fmt.Println("a3: ", res)
 
 	//a4 =================
 	l := []int{1, 2, 3}
 	a4(l)
-	fmt.Println("a4: ",l)
+	fmt.Println("a4: ", l)
 
 	//a5 =================
 	a5(100)
@@ -158,4 +186,8 @@ func main() {
 	//a8 =================
 	fmt.Println("a8: iteration:", a8_iteration(10), " recursive:", a8_recursive(10))
 
+	//a9 =================
+	fmt.Println("a9: iteration:", a9_iteration(10, 2), " recursive:", a9_recursive(10, 2))
+
 }
+
