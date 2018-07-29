@@ -189,5 +189,89 @@ func main() {
 	//a9 =================
 	fmt.Println("a9: iteration:", a9_iteration(10, 2), " recursive:", a9_recursive(10, 2))
 
+	//a10 ================
+	fmt.Println("a10 iteration:",a10_iteration(3,2)," recursive:",a10_recursive(3,2))
+
+	//a11 ================
+	fmt.Println("a11 iteration:",a11_iteration(10)," recursive:",a11_recursive(10))
+
+	//a12 ================
+	fmt.Println("a12  recursive:",a12_recursive([]byte{'a','b','c'}))
 }
 
+func a10_iteration(m,n int) int  {
+	var ll [][]int = make([][]int,0)
+	ll = append(ll,[]int{m,n})
+
+	for   {
+		if len(ll)==0{
+			break
+		}
+		for m>0{
+			for n>0{
+				//(m,n-1)->(m,0)
+				n--
+				ll = append(ll,[]int{m,n})
+			}
+			//(m,0) (m-1,1)
+			ll = ll[:len(ll)-1]
+			n++
+			m--
+			ll = append(ll,[]int{m,n})
+		}
+
+		temp := ll[len(ll)-1]
+		m = temp[0]
+		n = temp[1]
+		n++
+		ll=ll[:len(ll)-1]
+		//fmt.Println(ll)
+		if len(ll)!=0{
+			temp = ll[len(ll)-1]
+			ll = ll[:len(ll)-1]
+			m = temp[0]
+			m--
+			ll = append(ll,[]int{m,n})
+		}
+		//fmt.Println(ll)
+		//time.Sleep(time.Second)
+	}
+	return n
+}
+
+func a10_recursive(m,n int)int  {
+	if m==0{
+		return n+1
+	}else if n==0{
+		return a10_recursive(m-1,1)
+	}else {
+		return a10_recursive(m-1,a10_recursive(m,n-1))
+	}
+}
+
+func a11_iteration(n int) int  {
+	f := 1
+	for i:=2;i<=n;i++{
+		f = 2*f+1
+	}
+	return f
+}
+
+func a11_recursive(n int) int  {
+	if n==1{
+		return 1
+	}
+	return a11_recursive(n-1)*2+1
+}
+
+func a12_recursive(ll []byte) [][]byte  {
+	length := len(ll)
+	if length ==1{
+		return [][]byte{[]byte{},ll}
+	}
+	res := a12_recursive(ll[1:])
+	for _,v := range res{
+		res = append(res,append(v,ll[0]))
+	}
+	return res
+}
